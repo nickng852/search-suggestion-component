@@ -59,7 +59,7 @@ const SearchResult = ({
 }: {
   debouncedSearchTerm: string;
 }) => {
-  const apiKey = import.meta.env.VITE_SOME_KEY;
+  const apiKey = import.meta.env.VITE_API_KEY;
   const { isPending, data } = useQuery({
     queryKey: ["searchSuggestions", debouncedSearchTerm],
     queryFn: () =>
@@ -69,7 +69,7 @@ const SearchResult = ({
         // but it seems that the API does not support this
         // it return "Error: 'Procedure or function SearchTitle has too many arguments specified.'"
         // so I choose to filter the data on the client side
-        `http://www.omdbapi.com/?apikey=${apiKey}&s=${debouncedSearchTerm}`
+        `https://www.omdbapi.com/?apikey=${apiKey}&s=${debouncedSearchTerm}`
       ).then((res) => res.json()),
     enabled: debouncedSearchTerm.length > 0,
     staleTime: 60 * 1000, // 1 minute
